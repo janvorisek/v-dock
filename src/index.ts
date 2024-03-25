@@ -1,6 +1,8 @@
 import type { App } from 'vue'
 import * as Components from '~/components'
 
+import './css/main.scss'
+
 function install(app: App) {
   Object.keys(Components).forEach((key) => {
     // eslint-disable-next-line ts/ban-ts-comment
