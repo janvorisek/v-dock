@@ -22,16 +22,19 @@ function mouseMove(e: MouseEvent) {
   // new sizes
   const orientation = parent.classList.contains('v-dock-horizontal') ? 'horizontal' : 'vertical'
 
-  e1.style.flexShrink = '0'
-  e2.style.flexShrink = '0'
+  if(orientation === 'horizontal')
+  {
+    e1.style.flexShrink = '0'
+    e2.style.flexShrink = '0'
+  }
 
   if (orientation === 'horizontal') {
     e1.style.width = `${(s1w + e.movementX) / parent.offsetWidth * 100}%`
     e2.style.width = `${(s2w - e.movementX) / parent.offsetWidth * 100}%`
   }
   else {
-    e1.style.height = `${(s1h + e.movementY) / parent.offsetHeight * 100}px`
-    e2.style.height = `${(s2h - e.movementY) / parent.offsetHeight * 100}px`
+    e1.style.height = `${(s1h + e.movementY) / parent.offsetHeight * 100}%`
+    e2.style.height = `${(s2h - e.movementY) / parent.offsetHeight * 100}%`
   }
 }
 

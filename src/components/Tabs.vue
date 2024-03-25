@@ -75,7 +75,7 @@ function deleteTab(id: number) {
     </div>
 
     <div class="v-dock-tab-body">
-      <div v-for="(c, i) in children" :key="c.id" :style="`display: ${tab === i ? 'block' : 'none'}`">
+      <div v-for="(c, i) in children" :key="c.id" :style="`display: ${tab === i ? 'flex' : 'none'}; width: 100%; height: 100%;`">
         <component :is="c.component" />
       </div>
     </div>
@@ -84,6 +84,8 @@ function deleteTab(id: number) {
 
 <style lang="scss">
 .v-dock-tabbed {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -93,6 +95,7 @@ function deleteTab(id: number) {
 }
 
 .v-dock-tab-body {
+  display: flex;
   height: 100%;
 }
 </style>
