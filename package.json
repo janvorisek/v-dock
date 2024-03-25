@@ -18,6 +18,10 @@
     ".": {
       "import": "./dist/vdock.es.js",
       "types": "./dist/types/index.d.ts"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "scripts": {
