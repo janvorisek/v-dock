@@ -1,7 +1,5 @@
-import ExampleA from './ExampleA.vue'
-import ExampleB from './ExampleB.vue'
+import DockView from './DockView.vue'
 
 export {
-  ExampleA,
-  ExampleB,
+  DockView
 }
