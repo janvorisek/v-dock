@@ -1,0 +1,252 @@
+.dockview-theme-light {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    Noto Sans,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+  --dv-background-color: black;
+  --dv-paneview-active-outline-color: dodgerblue;
+  --dv-tabs-and-actions-container-font-size: 13px;
+  --dv-tabs-and-actions-container-height: 35px;
+  --dv-drag-over-background-color: rgba(83, 89, 93, 0.5);
+  --dv-drag-over-border-color: white;
+  --dv-tabs-container-scrollbar-color: #888;
+  --dv-icon-hover-background-color: rgba(90, 93, 94, 0.31);
+  --dv-floating-box-shadow: 8px 8px 8px 0px rgba(83, 89, 93, 0.5);
+  --dv-group-view-background-color: white;
+  --dv-tabs-and-actions-container-background-color: #f3f3f3;
+  --dv-activegroup-visiblepanel-tab-background-color: white;
+  --dv-activegroup-hiddenpanel-tab-background-color: #ececec;
+  --dv-inactivegroup-visiblepanel-tab-background-color: white;
+  --dv-inactivegroup-hiddenpanel-tab-background-color: #ececec;
+  --dv-tab-divider-color: white;
+  --dv-activegroup-visiblepanel-tab-color: #333;
+  --dv-activegroup-hiddenpanel-tab-color: rgba(51, 51, 51, 0.7);
+  --dv-inactivegroup-visiblepanel-tab-color: rgba(51, 51, 51, 0.7);
+  --dv-inactivegroup-hiddenpanel-tab-color: rgba(51, 51, 51, 0.35);
+  --dv-separator-border: rgba(128, 128, 128, 0.35);
+  --dv-separator-width: 1px;
+  --dv-paneview-header-border-color: rgb(51, 51, 51);
+}
+
+.v-dock-view {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.v-dock-view {
+  background-color: var(--dv-group-view-background-color);
+}
+
+.v-dock-splitter {
+  box-sizing: border-box;
+  position: relative;
+  background-color: var(--dv-separator-border);
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.v-dock-panel {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.v-specified-size {
+  flex-shrink: 0;
+}
+
+.v-dock-horizontal {
+  flex-direction: row;
+  height: 100%;
+}
+
+.v-dock-vertical {
+  flex-direction: column;
+}
+
+.v-dock-panel.v-dock-tabbed {
+  display: flex;
+  flex-direction: column;
+}
+
+.v-mouse-placement-effect {
+  z-index: 5;
+  content: ' ';
+  position: absolute;
+}
+
+.v-dock-horizontal > .v-dock-splitter {
+  width: var(--dv-separator-width);
+  cursor: ew-resize;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 100%;
+    background-color: transparent;
+    top: 0;
+    bottom: 0;
+    left: calc(-8px + var(--dv-separator-width) / 2);
+  }
+}
+
+.v-dock-vertical > .v-dock-splitter {
+  height: var(--dv-separator-width);
+  cursor: ns-resize;
+  &:before {
+    content: '';
+    position: absolute;
+    height: 16px;
+    width: 100%;
+    background-color: transparent;
+    top: calc(-8px + var(--dv-separator-width) / 2);
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.v-dock-tabs-and-actions {
+  .v-dock-tabs {
+    display: flex;
+    overflow-x: overlay;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      width: 0; /* Remove scrollbar space */
+      height: 0;
+      background: transparent; /* Optional: just make scrollbar invisible */
+    }
+
+    > .v-dock-tab {
+      display: flex;
+      align-items: center;
+      -webkit-user-drag: element;
+      box-sizing: border-box;
+      cursor: pointer;
+      min-width: 90px;
+      outline: 0;
+      white-space: nowrap;
+      padding: 0 8px;
+      position: relative;
+
+      background-color: var(--dv-activegroup-hiddenpanel-tab-background-color);
+      color: var(--dv-activegroup-hiddenpanel-tab-color);
+
+      &:not(:first-child):before {
+        background-color: var(--dv-tab-divider-color);
+        content: ' ';
+        height: 100%;
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        width: 1px;
+        z-index: 5;
+      }
+
+      .action {
+        display: none;
+        align-items: center;
+        box-sizing: border-box;
+        justify-content: center;
+        padding: 4px;
+
+        &:hover {
+          background-color: var(--dv-icon-hover-background-color);
+          border-radius: 2px;
+        }
+      }
+
+      &.active {
+        background-color: var(
+          --dv-activegroup-visiblepanel-tab-background-color
+        );
+        color: var(--dv-activegroup-visiblepanel-tab-color);
+
+        .action {
+          display: flex;
+        }
+      }
+
+      .v-dock-tab-content {
+        flex-grow: 1;
+        padding: 0 8px;
+      }
+
+      &:hover {
+        .action {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+.v-dock-tabs-and-actions {
+  background-color: var(--dv-tabs-and-actions-container-background-color);
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  font-size: var(--dv-tabs-and-actions-container-font-size);
+  height: var(--dv-tabs-and-actions-container-height);
+
+  .v-dock-void {
+    cursor: grab;
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .v-dock-tab-group {
+    display: flex;
+    align-items: center;
+    padding: 0px 8px;
+    height: 100%;
+    color: var(--dv-activegroup-visiblepanel-tab-color);
+
+    > div {
+      align-items: center;
+      box-sizing: border-box;
+      cursor: pointer;
+      display: flex;
+      font-size: 18px;
+      justify-content: center;
+      padding: 4px;
+
+      &:hover {
+        background-color: var(--dv-icon-hover-background-color);
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .v-dock-tab-add {
+    align-items: center;
+    display: flex;
+  }
+
+  .v-dock-tab-actions {
+    align-items: center;
+    display: flex;
+  }
+}
+
+.v-dock-drop {
+  background-color: var(--dv-drag-over-background-color) !important;
+}
+
+.v-mouse-placement-effect {
+  background: var(--dv-drag-over-background-color) !important;
+}
