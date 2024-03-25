@@ -5,13 +5,13 @@ import { v4 as uuidv4 } from 'uuid'
 
 import Splitter from './Splitter.vue'
 import Tabs from './Tabs.vue'
-import { findParentElementWithClass } from '~/utils'
+import { Item, findParentElementWithClass } from '~/utils'
 
 const props = withDefaults(defineProps<{
   id?: string
   variant?: 'split' | 'tabs'
   orientation?: 'horizontal' | 'vertical'
-  children?: unknown[]
+  children?: Item[]
   width?: string
   height?: string
 }>(), {

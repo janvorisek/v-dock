@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, provide, ref } from 'vue'
-import { addItem, deleteItem, findParentElementWithClass, getItemRecursive } from '../utils'
+import { Item, addItem, deleteItem, findParentElementWithClass, getItemRecursive } from '../utils'
 import Panel from './Panel.vue'
 
-const model = defineModel()
+const model = defineModel<Item>({required: true, type: Object})
 provide('model', model)
 
 const dragid = ref('')
@@ -18,16 +18,23 @@ function move(to: string, how: string) {
 
   if (how === 'before_tab') {
     const orig = deleteItem(model.value, dragid.value)
-    addItem(model.value, to, orig)
+    if(!orig)
+      return
+
+    addItem(model.value!, to, orig)
   }
   else if (how === 'into_panel') {
     const orig = deleteItem(model.value, dragid.value)
+    if (!orig)
+      return
 
     const item = getItemRecursive(model.value, to)
+    if (!item)
+      return
+
     if (item) {
       if ('children' in item)
-        item.children.push(orig)
-
+        item.children!.push(orig)
       else
         item.children = [orig]
     }
@@ -45,7 +52,7 @@ function endDrag(e: Event) {
   if (!target)
     return
 
-  move(target.getAttribute('data-uuid'), dropaction.value)
+  move(target.getAttribute('data-uuid')!, dropaction.value)
 }
 
 onMounted(() => {
@@ -58,7 +65,6 @@ onUnmounted(() => {
 
 function deleteItemById(id: string) {
   deleteItem(model.value, id)
-  model.value = {}
 }
 
 provide('deleteItemById', deleteItemById)

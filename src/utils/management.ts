@@ -1,3 +1,5 @@
+import { ComponentPublicInstance } from "vue"
+
 export function findParentElementWithClass(element: HTMLElement, className: string): HTMLElement | null {
   if (element.classList.contains(className))
     return element
@@ -9,20 +11,26 @@ export function findParentElementWithClass(element: HTMLElement, className: stri
   return parent
 }
 
-interface Item {
+export interface Item {
   id: string
-  children: Item[]
+  title: string
+  children?: Item[]
+  width: string
+  height: string
+  variant: 'split' | 'tabs'
+  orientation: 'horizontal' | 'vertical'
+  component: ComponentPublicInstance
 }
 
 export function getItemRecursive(item: Item, uuid: string): Item | null {
   if ('children' in item === false)
     return null
 
-  const index = item.children.find(child => child.id === uuid)
+  const index = item.children!.find(child => child.id === uuid)
   if (index)
     return index
 
-  for (const child of item.children) {
+  for (const child of item.children!) {
     const ret = getItemRecursive(child, uuid)
     if (ret)
       return ret
@@ -37,11 +45,11 @@ export function deleteItem(item: Item, uuid: string): Item | null {
 
   let tmp = null
 
-  const index = item.children.findIndex(child => child.id === uuid)
+  const index = item.children!.findIndex(child => child.id === uuid)
   if (index !== -1)
-    return item.children.splice(index, 1)[0]
+    return item.children!.splice(index, 1)[0]
 
-  for (const child of item.children) {
+  for (const child of item.children!) {
     tmp = deleteItem(child, uuid)
     if (tmp)
       return tmp
@@ -54,12 +62,12 @@ export function addItem(item: Item, uuid: string, what: Item) {
   if ('children' in item === false)
     return
 
-  const index = item.children.findIndex(child => child.id === uuid)
+  const index = item.children!.findIndex(child => child.id === uuid)
   if (index !== -1) {
-    item.children.splice(index, 0, what)
+    item.children!.splice(index, 0, what)
     return
   }
 
-  for (const child of item.children)
+  for (const child of item.children!)
     addItem(child, uuid, what)
 }

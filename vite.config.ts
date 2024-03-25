@@ -13,9 +13,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'lib',
+      name: 'vdock',
       formats: ['es'],
-      fileName: format => `lib.${format}.js`,
+      fileName: format => `vdock.${format}.js`,
     },
     rollupOptions: {
       external: ['vue'],

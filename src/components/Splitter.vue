@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 
-defineProps<{
-  //
-}>()
-
 const splitter = ref<HTMLDivElement | null>(null)
 const dragging = ref(false)
 

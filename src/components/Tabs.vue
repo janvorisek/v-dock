@@ -3,10 +3,10 @@ import type { Ref } from 'vue'
 import { inject, ref } from 'vue'
 
 import { Cross1Icon, HamburgerMenuIcon, PlusIcon, SizeIcon } from '@radix-icons/vue'
-import { findParentElementWithClass } from '../utils'
+import { Item, findParentElementWithClass } from '../utils'
 
 const props = defineProps<{
-  children: unknown[]
+  children: Item[]
 }>()
 
 const tab = ref(0)
@@ -35,7 +35,7 @@ function onDrop(e: DragEvent) {
   }
 }
 
-const deleteItemById = inject('deleteItemById')
+const deleteItemById = inject('deleteItemById') as (id: string) => void
 function deleteTab(id: number) {
   if (id < tab.value || tab.value === props.children.length - 1)
     tab.value = tab.value - 1
@@ -63,7 +63,7 @@ function deleteTab(id: number) {
           <PlusIcon />
         </div>
       </div>
-      <div class="v-dock-void" @drop="onDrop" @pointerleave="($event) => $event.target.classList.remove('v-dock-drop')" />
+      <div class="v-dock-void" @drop="onDrop" @pointerleave="($event) => ($event.target as HTMLDivElement).classList.remove('v-dock-drop')" />
       <div class="v-dock-tab-group v-dock-tab-actions">
         <div>
           <SizeIcon />
