@@ -158,7 +158,8 @@
       }
 
       .action {
-        display: none;
+        display: flex;
+        opacity: 0;
         align-items: center;
         box-sizing: border-box;
         justify-content: center;
@@ -170,6 +171,10 @@
         }
       }
 
+      &:hover .action {
+        opacity: 1;
+      }
+
       &.active {
         background-color: var(
           --dv-activegroup-visiblepanel-tab-background-color
@@ -177,7 +182,7 @@
         color: var(--dv-activegroup-visiblepanel-tab-color);
 
         .action {
-          display: flex;
+          opacity: 1;
         }
       }
 
